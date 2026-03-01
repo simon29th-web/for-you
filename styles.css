@@ -1,0 +1,85 @@
+:root {
+  --bg: #08070f;
+  --text: #f5f6ff;
+  --shadow: rgba(0, 0, 0, 0.45);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+  background: radial-gradient(circle at top, #171626, var(--bg) 52%);
+  color: var(--text);
+  font-family: "Montserrat", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+.stairs {
+  perspective: 1400px;
+  transform-style: preserve-3d;
+}
+
+.step {
+  position: sticky;
+  top: 0;
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 6vh 6vw;
+  transform-style: preserve-3d;
+  box-shadow: 0 -24px 48px var(--shadow) inset;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  will-change: transform, filter;
+  transition: transform 220ms linear, filter 220ms linear;
+}
+
+.content {
+  font-size: clamp(2.25rem, 12vw, 10rem);
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  text-align: center;
+  line-height: 1;
+  text-shadow: 0 10px 30px rgba(0, 0, 0, 0.55);
+  transform: translateZ(80px);
+}
+
+.step-1 {
+  background: linear-gradient(150deg, #5b148a 0%, #1a1738 45%, #090914 100%);
+}
+
+.step-2 {
+  background: linear-gradient(145deg, #0b4e78 0%, #181c45 45%, #090914 100%);
+}
+
+.step-3 {
+  background: linear-gradient(145deg, #11615d 0%, #1b1e43 50%, #090914 100%);
+}
+
+.step-4 {
+  background: linear-gradient(145deg, #7b3f16 0%, #281942 45%, #090914 100%);
+}
+
+@media (max-width: 768px) {
+  .step {
+    padding: 5vh 5vw;
+  }
+
+  .content {
+    letter-spacing: 0.08em;
+    transform: translateZ(48px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .step {
+    transition: none;
+  }
+}
