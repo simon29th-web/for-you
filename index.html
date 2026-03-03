@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Holi Special 💚</title>
+
+<style>
+body{
+margin:0;
+padding:0;
+font-family:'Poppins',sans-serif;
+overflow:hidden;
+}
+
+/* Background with slow zoom */
+.bg{
+position:fixed;
+width:100%;
+height:100%;
+background:url('bg.jpg') no-repeat center center/cover;
+animation:zoomBg 25s ease-in-out infinite alternate;
+z-index:-2;
+}
+
+@keyframes zoomBg{
+from{transform:scale(1);}
+to{transform:scale(1.1);}
+}
+
+/* Soft overlay */
+.overlay{
+position:fixed;
+width:100%;
+height:100%;
+background:rgba(255,255,255,0.45);
+backdrop-filter:blur(2px);
+z-index:-1;
+}
+
+.container{
+position:absolute;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%);
+width:90%;
+max-width:600px;
+text-align:center;
+color:#1b4332;
+}
+
+/* Countdown */
+#countdown{
+font-size:70px;
+font-weight:bold;
+animation:pulse 0.8s infinite alternate;
+}
+
+@keyframes pulse{
+from{transform:scale(1);}
+to{transform:scale(1.2);}
+}
+
+/* Gift */
+.gift{
+width:130px;
+height:130px;
+background:#74c69d;
+margin:20px auto;
+border-radius:15px;
+position:relative;
+display:none;
+cursor:pointer;
+}
+
+.lid{
+width:130px;
+height:35px;
+background:#52b788;
+position:absolute;
+top:-35px;
+border-radius:15px 15px 0 0;
+transition:0.6s ease;
+transform-origin:left;
+}
+
+.ribbonV{
+width:16px;
+height:130px;
+background:white;
+position:absolute;
+left:57px;
+}
+
+.ribbonH{
+width:130px;
+height:16px;
+background:white;
+position:absolute;
+top:57px;
+}
+
+.open .lid{
+transform:rotate(-100deg);
+}
+
+/* Wish */
+#wish{
+display:none;
+animation:fadeUp 1s ease forwards;
+}
+
+@keyframes fadeUp{
+from{opacity:0; transform:translateY(20px);}
+to{opacity:1; transform:translateY(0);}
+}
+
+.name{
+font-size:32px;
+font-weight:600;
+margin-bottom:10px;
+color:#2d6a4f;
+}
+
+/* Typing box */
+#typedBox{
+max-height:250px;
+overflow-y:auto;
+scroll-behavior:smooth;
+font-size:15px;
+line-height:1.7;
+white-space:pre-line;
+padding-right:5px;
+}
+
+/* Blinking Cursor */
+.cursor{
+display:inline-block;
+width:8px;
+background:#2d6a4f;
+margin-left:3px;
+animation:blink 1s infinite;
+}
+
+@keyframes blink{
+0%,50%,100%{opacity:1;}
+25%,75%{opacity:0;}
+}
+
+button{
+margin-top:15px;
+padding:8px 18px;
+border:none;
+border-radius:20px;
+background:#40916c;
+color:white;
+font-size:14px;
+cursor:pointer;
+}
+button:hover{
+background:#2d6a4f;
+}
+</style>
+</head>
+
+<body>
+
+<div class="bg"></div>
+<div class="overlay"></div>
+
+<audio id="bgMusic" src="xyz.mp3" loop></audio>
+
+<div class="container">
+
+<div id="countdown">3</div>
+
+<div class="gift" id="gift" onclick="openGift()">
+<div class="lid"></div>
+<div class="ribbonV"></div>
+<div class="ribbonH"></div>
+</div>
+
+<div id="wish">
+<h2>💚 Happy Holi 💚🌈</h2>
+<div class="name">Squeezy 🌿</div>
+
+<div id="typedBox">
+<span id="typedText"></span><span class="cursor"></span>
+</div>
+
+<button onclick="playMusic()">Play Soft Vibes 🎶</button>
+</div>
+
+</div>
+
+<script>
+let count=3;
+let countdown=document.getElementById("countdown");
+let gift=document.getElementById("gift");
+
+let timer=setInterval(()=>{
+count--;
+countdown.innerText=count;
+if(count<=0){
+clearInterval(timer);
+countdown.style.display="none";
+gift.style.display="block";
+}
+},1000);
+
+function openGift(){
+gift.classList.add("open");
+setTimeout(()=>{
+gift.style.display="none";
+document.getElementById("wish").style.display="block";
+startMusicFadeIn();
+typeMessage();
+},600);
+}
+
+/* Music Fade In */
+function startMusicFadeIn(){
+let music=document.getElementById("bgMusic");
+music.volume=0;
+music.play();
+let fade=setInterval(()=>{
+if(music.volume<1){
+music.volume+=0.05;
+}else{
+clearInterval(fade);
+}
+},200);
+}
+
+function playMusic(){
+startMusicFadeIn();
+}
+
+/* Auto Typing */
+const message=`one's agin happy holi to the most colorful person in my life 🎨✨
+
+May your life always be filled with bright smiles, crazy fun, and beautiful memories.
+Stay the same amazing person you are! 💚
+
+You are the most beautiful color in my life.
+May our friendship stay brighter than every Holi color 🌈✨
+
+I know kaafi time se baat nahi hui hai…
+But mujhe lagta hai ki har baar baat karna zaroori nahi hota, kuch rishte aise hote hain jo bina daily conversation ke bhi same rehte hain 😊
+
+Kabhi kabhi life busy ho jaati hai, but that doesn’t change anything. Right?
+Agar kabhi mai baat nahi kar paaya toh iska matlab yeh nahi ki hamari friendship kam ho gayi 💚
+
+You’re still my best friend and also my closest one ❣️
+
+Bhagwan kare tumhari life colors se, happiness se aur positivity se bhari rahe 🌸✨
+Stay happy forever.. 💚`;
+
+let i=0;
+function typeMessage(){
+if(i<message.length){
+document.getElementById("typedText").innerHTML+=message.charAt(i);
+i++;
+document.getElementById("typedBox").scrollTop=document.getElementById("typedBox").scrollHeight;
+setTimeout(typeMessage,25);
+}
+}
+</script>
+
+</body>
+</html>
